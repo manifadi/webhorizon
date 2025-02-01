@@ -1,0 +1,108 @@
+/* Tablet (1024px and down) */
+@media screen and (max-width: 1024px) {
+    :root {
+        --container-padding: 3rem;
+        --section-spacing: 6rem;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .faq-contact {
+        background: #fff;
+    }
+    
+    .faq-contact-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .faq-section {
+        padding-right: 0;
+    }
+    
+    .contact-section {
+        margin: 0 -2rem;
+        border-radius: 0;
+    }
+}
+
+/* Mobile (768px and down) */
+@media screen and (max-width: 768px) {
+    :root {
+        --font-size-h1: 2.5rem;
+        --font-size-h2: 2rem;
+        --font-size-h3: 1.5rem;
+        --container-padding: 2rem;
+        --section-spacing: 4rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .section-description {
+        padding: 0 1rem;
+    }
+}
+
+/* Small Mobile (480px and down) */
+@media screen and (max-width: 480px) {
+    :root {
+        --container-padding: 1.5rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .contact-section {
+        padding: 2rem;
+    }
+    
+    .contact-section h2 {
+        font-size: 1.75rem;
+    }
+}
