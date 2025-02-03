@@ -409,6 +409,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .project-slide.prev {
@@ -503,6 +504,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
+    align-items: center;
 }
 /* FAQ Styles */
 .faq-section {
@@ -514,6 +516,18 @@ body {
     border-radius: 8px;
     margin-bottom: 1rem;
     background: white;
+    color: var(--text-color);
+    transition: .3s ease-out color, .3s ease-out border-color; 
+}
+
+.faq-item:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.faq-item.active {
+    border-color: #eee;
+    color: var(--text-color);
 }
 
 .faq-question {
@@ -523,7 +537,6 @@ body {
     padding: 1.25rem 1.5rem;
     cursor: pointer;
     font-weight: 500;
-    color: var(--text-color);
 }
 
 .arrow-icon {
@@ -654,12 +667,20 @@ body {
     position: absolute;
     top: -2rem;
     right: -2rem;
-    bottom: -2rem;
-    left: 30%;
+    bottom: 1rem;
     background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px); /* Dots kleiner */
     background-size: 20px 20px; /* Dots enger zusammen */
     opacity: 0.8; /* Opacity auf 0.8 erhöht */
-    z-index: -1;
+    z-index: 0;
+    width: 300px;
+    height: 160px;
+}
+
+.faq-contact > .dot-pattern:nth-child(2){
+    left: 45%;
+    top: initial;
+    height: 100px;
+    width: 220px;
 }
 
 /* Footer */
