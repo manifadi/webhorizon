@@ -1,8 +1,10 @@
 :root {
     /* Colors */
+    /* Erweiterte Farbpalette */
     --primary-color: #2D7FF9;
     --secondary-color: #18191F;
-    --background-color: #FFFFFF;
+    --accent-color-light: #F0F7FF; /* Sehr helles Blau für Hintergründe */
+    --gradient-bg: linear-gradient(135deg, var(--accent-color-light) 0%, white 100%);
     --text-color: #18191F;
     --text-color-light: #666666;
     --border-color: #E5E5E5;
@@ -15,8 +17,8 @@
     --font-size-h3: 1.75rem;
     
     /* Spacing */
-    --container-padding: 5rem;
-    --section-spacing: 8rem;
+    --container-padding: 4rem;
+    --section-spacing: 6rem;
 }
 
 /* Reset & Base Styles */
@@ -26,21 +28,49 @@
     box-sizing: border-box;
 }
 
+/* Hide Scrollbar but keep functionality */
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: none;
+}
+
+/* For IE and Edge */
+* {
+    -ms-overflow-style: none;
+}
+
+/* Ensure the page still scrolls smoothly */
+html {
+    scroll-behavior: smooth;
+    /* Verhindert horizontales Scrollen auf mobilen Geräten */
+    overflow-x: hidden;
+}
+
 body {
     font-family: var(--font-primary);
     font-size: var(--font-size-base);
     line-height: 1.5;
     color: var(--text-color);
     background-color: var(--background-color);
+    /* Behält die Scroll-Funktionalität bei */
+    overflow-y: scroll;
+    /* Verhindert horizontales Scrollen */
+    overflow-x: hidden;
+    /* Macht das Scrollen geschmeidig auf iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Layout Containers */
 .hero-container,
-.services-container,
-.references-container {
+.services-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: var(--section-spacing) 2rem;
 }
 
 /* Header & Navigation */
@@ -64,10 +94,12 @@ body {
     text-decoration: none;
 }
 
+/* Navigation Styles Update */
 .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
+    align-items: center;
 }
 
 .nav-links a {
@@ -75,6 +107,50 @@ body {
     text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Portfolio Link Special Styling */
+.portfolio-link {
+    background-color: var(--primary-color);
+    color: white !important;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease !important;
+}
+
+.portfolio-link:hover {
+    background-color: #2468d9;
+}
+
+.portfolio-link::after {
+    display: none; /* Entfernt den Unterstrich-Effekt für den Portfolio-Button */
+}
+
+/* Aktiver Menüpunkt */
+.nav-links a.active {
+    color: var(--primary-color);
+}
+
+.nav-links a.active::after {
+    width: 100%;
 }
 
 /* Hero Section */
@@ -122,18 +198,6 @@ body {
     z-index: 2;
 }
 
-.dot-pattern {
-    position: absolute;
-    top: -2rem;
-    right: -2rem;
-    bottom: -2rem;
-    left: 30%;
-    background-image: radial-gradient(circle, #000 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.1;
-    z-index: 1;
-}
-
 /* Buttons */
 .cta-buttons {
     display: flex;
@@ -142,17 +206,27 @@ body {
 
 .btn {
     padding: 0.875rem 1.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover{
+    transform: translateY(-2px);
 }
 
 .btn.primary {
-    background-color: var(--primary-color);
     color: white;
     border: none;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1a6cd0 100%);
+    box-shadow: 0 4px 15px rgba(45, 127, 249, 0.2);
+}
+
+.btn.primary:hover {
+    box-shadow: 0 6px 20px rgba(45, 127, 249, 0.3);
 }
 
 .btn.secondary {
@@ -172,7 +246,8 @@ body {
 /* Services Section */
 .services {
     padding: var(--section-spacing) 0;
-    background-color: var(--background-color);
+    background: var(--accent-color-light);
+
 }
 
 .section-title {
@@ -204,6 +279,13 @@ body {
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(45, 127, 249, 0.1);
 }
 
 .service-icon {
@@ -223,52 +305,198 @@ body {
     margin-bottom: 1.5rem;
 }
 
-/* References Section */
+/* References Section (New Carousel Version) */
 .references {
     padding: var(--section-spacing) 0;
+    overflow: hidden;
+}
+
+.references-container {
+    margin: 0 auto;
+    padding: 0 0 100px;
+    position: relative;
+}
+
+/* References Description Styles */
+.references-container .section-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: var(--text-color-light);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.interaction-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--text-color-light);
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+    opacity: 0.8;
+}
+
+.hint-icon {
+    width: 16px;
+    height: 16px;
+    animation: slideRight 1.5s ease-in-out infinite;
+}
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(-3px);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateX(3px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-3px);
+        opacity: 0.5;
+    }
 }
 
 .references h2 {
     text-align: center;
     margin-bottom: 4rem;
+    font-size: var(--font-size-h2);
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.carousel-container {
+    position: relative;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imac-frame {
+    position: absolute;
+    width: 800px;
+    z-index: 3; /* Ändern auf 3 */
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none; /* Wichtig: Erlaubt Maus-Events durch den Frame hindurch */
+}
+
+.project-slides {
+    overflow: hidden;
+    position: absolute;
+    top: -90px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 2rem;
 }
 
-.project-card {
-    background: white;
-    border-radius: 1rem;
-    overflow: hidden;
+.project-slide {
+    position: absolute;
+    width: 680px;
+    height: 428px;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 2; /* Explizit setzen */
 }
 
-.project-image {
-    width: 100%;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-}
-
-.project-image img {
+.project-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 4px;
 }
 
-.project-card h3 {
-    padding: 1.5rem;
-    font-size: 1.25rem;
+.project-slide.prev {
+    transform: translateX(-100%) scale(0.8);
+    opacity: 0.7;
+    z-index: 1;
 }
 
+.project-slide.current {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 1;
+}
 
+.project-slide.next {
+    transform: translateX(100%) scale(0.8);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+/* Carousel Navigation */
+.carousel-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-dot.active {
+    background-color: var(--primary-color);
+}
+
+/* Project Hover Box Styles */
+.carousel-container {
+    position: relative;
+}
+
+.project-hover-box {
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 8px 12px 8px 24px;
+    border-radius: 100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 4; /* Höher als der iMac-Frame */
+    gap: 15px;
+}
+
+.hover-text {
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.hover-circle {
+    width: 48px;
+    height: 48px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hover-circle svg {
+    width: 24px;
+    height: 24px;
+}
 
 /* FAQ & Contact Section */
 .faq-contact {
     padding: var(--section-spacing) 6%;
     position: relative;
     background: linear-gradient(to right, #fff 50%, #f8f9fa 50%);
+    overflow: hidden;
 }
 
 .faq-contact-container {
@@ -276,7 +504,6 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
 }
-
 /* FAQ Styles */
 .faq-section {
     padding-right: 2rem;
@@ -336,6 +563,32 @@ body {
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: visible; /* Wichtig, damit die Dots außerhalb sichtbar sind */
+}
+
+.contact-dots-left {
+    position: absolute;
+    width: 120px;
+    height: 140px;
+    left: -60px;
+    bottom: -70px;
+    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.contact-dots-right {
+    position: absolute;
+    width: 120px;
+    height: 140px;
+    right: -60px;
+    top: -70px;
+    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.8;
+    z-index: 1;
 }
 
 .contact-section h2 {
@@ -399,14 +652,13 @@ body {
 /* Dot Pattern */
 .dot-pattern {
     position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 200px;
-    height: 300px;
-    background-image: radial-gradient(circle, var(--primary-color) 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.1;
+    top: -2rem;
+    right: -2rem;
+    bottom: -2rem;
+    left: 30%;
+    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px); /* Dots kleiner */
+    background-size: 20px 20px; /* Dots enger zusammen */
+    opacity: 0.8; /* Opacity auf 0.8 erhöht */
     z-index: -1;
 }
 
@@ -415,4 +667,79 @@ footer {
     padding: 2rem 0;
     text-align: center;
     color: var(--text-color);
+}
+
+/* Scroll to Top Button */
+#scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+#scroll-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#scroll-to-top svg:first-child {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-color);
+}
+
+#scroll-to-top .progress-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+#scroll-to-top .progress-circle circle {
+    fill: none;
+    stroke: var(--primary-color);
+    stroke-width: 4;
+    stroke-dasharray: 289.027px; /* Umfang des Kreises: 2 * π * 46 */
+    stroke-dashoffset: 289.027px;
+    transition: stroke-dashoffset 0.1s ease;
+}
+
+/* Floating Dots */
+.floating-dots {
+    position: absolute;
+    width: 160px;
+    height: 180px;
+    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px); /* Dots kleiner */
+    background-size: 20px 20px; /* Dots enger zusammen */
+    opacity: 0.8; /* Opacity auf 0.8 erhöht */
+    z-index: -1;
+    left: 3vw;
+    top: 80px;
+}
+
+/* Gradient Circle */
+.gradient-circle {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--accent-color-light) 0%, rgba(240, 247, 255, 0.3) 30%, transparent 70%);
+    opacity: 0.8;
+    z-index: -1;
+    left: -200px;
+    top: -100px;
 }
