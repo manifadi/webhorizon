@@ -87,11 +87,8 @@ body {
     align-items: center;
 }
 
-.logo a {
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    text-decoration: none;
+.logo img {
+    height: 60px;
 }
 
 /* Navigation Styles Update */
@@ -743,14 +740,14 @@ footer {
 /* Floating Dots */
 .floating-dots {
     position: absolute;
-    width: 160px;
-    height: 180px;
+    width: 140px;
+    height: 80px;
     background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px); /* Dots kleiner */
     background-size: 20px 20px; /* Dots enger zusammen */
     opacity: 0.8; /* Opacity auf 0.8 erhöht */
     z-index: -1;
-    left: 3vw;
-    top: 80px;
+    left: 15%;
+    top: 20%;
 }
 
 /* Gradient Circle */
