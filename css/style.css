@@ -295,9 +295,10 @@ body.no-scroll {
 
 /* Hero Section */
 .hero {
-    padding-top: calc(var(--container-padding) + 80px); /* Extra Padding oben für das fixierte Menü */
+    padding-top: calc(var(--container-padding) + 80px);
     position: relative;
     overflow: hidden;
+    perspective: 1000px;
 }
 
 .hero-container {
@@ -331,7 +332,8 @@ body.no-scroll {
 }
 
 .hero-image img {
-    width: 100%;
+    width: 115%;
+    transform: translateX(-10%);
     height: auto;
     border-radius: 1rem;
     position: relative;
@@ -350,8 +352,9 @@ body.no-scroll {
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.2s ease;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn:hover{
@@ -381,6 +384,24 @@ body.no-scroll {
     color: var(--text-color);
     padding: 0;
     font-weight: 500;
+}
+
+.btn:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.btn:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
 }
 
 /* Services Section */
@@ -414,13 +435,31 @@ body.no-scroll {
     margin-top: 4rem;
 }
 
+/* Service Number Styling */
+.service-number {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgba(45, 127, 249, 0.1);
+    z-index: 0;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-number {
+    color: rgba(45, 127, 249, 0.2);
+}
+
 .service-card {
     background: white;
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .service-card:hover {
@@ -433,6 +472,9 @@ body.no-scroll {
     height: 48px;
     margin-bottom: 1.5rem;
     color: var(--primary-color);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .service-card h3 {
@@ -634,7 +676,7 @@ body.no-scroll {
     padding: var(--section-spacing) 6%;
     position: relative;
     background: linear-gradient(to right, #fff 50%, #f8f9fa 50%);
-    overflow: hidden;
+    overflow-y: hidden;
 }
 
 .faq-contact > .dot-pattern {
@@ -680,14 +722,16 @@ body.no-scroll {
     margin-bottom: 1rem;
     background: white;
     color: var(--text-color);
-    transition: .3s ease-out color, .3s ease-out border-color;
+    transition: .3s ease-out color, .3s ease-out border-color, .3s ease-out transform;
     position: relative;
-    z-index: 1; /* Höherer z-index als die Dot-Pattern */
+    z-index: 1;
+    will-change: transform;
 }
 
 .faq-item:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
+    transform: translateX(5px);
 }
 
 .faq-item.active {
@@ -746,7 +790,12 @@ body.no-scroll {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: visible;
-    z-index: 1; /* Höherer z-index als die Dot-Pattern */
+    z-index: 1;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.contact-section:hover {
+    box-shadow: 0 8px 30px rgba(45, 127, 249, 0.15);
 }
 
 .contact-dots-left {
@@ -802,6 +851,14 @@ body.no-scroll {
     background: #f5f5f5;
     font-family: var(--font-primary);
     font-size: 0.95rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(45, 127, 249, 0.3);
+    transform: translateY(-2px);
 }
 
 .form-group textarea {
@@ -883,6 +940,7 @@ footer {
 #scroll-to-top.visible {
     opacity: 1;
     transform: translateY(0);
+    animation: pulse 2s infinite;
 }
 
 #scroll-to-top svg:first-child {
@@ -914,12 +972,13 @@ footer {
     position: absolute;
     width: 140px;
     height: 80px;
-    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px); /* Dots kleiner */
-    background-size: 20px 20px; /* Dots enger zusammen */
-    opacity: 0.8; /* Opacity auf 0.8 erhöht */
+    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.8;
     z-index: -1;
     left: 15%;
     top: 20%;
+    transition: transform 0.5s ease-out;
 }
 
 /* Gradient Circle */
@@ -932,6 +991,19 @@ footer {
     z-index: -1;
     left: -200px;
     top: -100px;
+    transition: transform 0.5s ease-out;
+}
+
+/* Allgemeine Animation-Klassen */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Media Queries für responsive Design */
@@ -970,5 +1042,32 @@ footer {
         width: 76.5vw; /* 85% der iMac-Breite */
         height: 43.03vw; /* Proportional angepasst */
         top: calc(7% + 6.4vw);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(45, 127, 249, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(45, 127, 249, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(45, 127, 249, 0);
     }
 }
