@@ -9,6 +9,12 @@
     --text-color-light: #666666;
     --border-color: #E5E5E5;
     
+    /* Neue Farben für das Vision OS-Style Menü */
+    --menu-bg-color: rgba(255, 255, 255, 0.7);
+    --menu-backdrop-filter: blur(15px);
+    --menu-border-color: rgba(255, 255, 255, 0.3);
+    --menu-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-size-base: 16px;
@@ -37,10 +43,6 @@
 /* For Firefox */
 * {
     scrollbar-width: none;
-}
-
-/* For IE and Edge */
-* {
     -ms-overflow-style: none;
 }
 
@@ -65,6 +67,10 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+body.no-scroll {
+    overflow: hidden;
+}
+
 /* Layout Containers */
 .hero-container,
 .services-container {
@@ -73,28 +79,45 @@ body {
     padding: var(--section-spacing) 2rem;
 }
 
-/* Header & Navigation */
+/* Header & Navigation - Updated Styles */
 .main-header {
-    padding: 1.5rem 2rem;
-    background-color: transparent;
+    position: fixed; /* Macht das Menü fixiert */
+    top: 20px; /* Abstand vom oberen Rand */
+    left: 50%; /* Zentriert horizontal */
+    transform: translateX(-50%); /* Korrigiert die Zentrierung */
+    width: 90%; /* Breite des Menüs */
+    max-width: 1200px; /* Maximale Breite */
+    padding: 0.75rem 1rem; /* Reduziertes Padding für ein kompakteres Design */
+    background-color: var(--menu-bg-color); /* Transparenter Hintergrund */
+    backdrop-filter: var(--menu-backdrop-filter); /* Glaseffekt */
+    -webkit-backdrop-filter: var(--menu-backdrop-filter); /* Für Safari */
+    border-radius: 14px; /* Abgerundete Ecken */
+    box-shadow: var(--menu-shadow); /* Subtiler Schatten */
+    border: 1px solid var(--menu-border-color); /* Subtile Umrandung */
+    z-index: 1000; /* Stellt sicher, dass das Menü über allem anderen liegt */
+    transition: all 0.3s ease; /* Smooth Transition für Animationen */
+}
+
+.main-header.menu-active {
+    transform: translateX(-50%) translateY(0) !important; /* Überschreibt die Scroll-Animation */
 }
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%; /* Nutzt die volle Breite des Headers */
+    margin: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo img {
-    height: 60px;
+    height: 45px; /* Etwas kleineres Logo für das kompaktere Menü */
 }
 
-/* Navigation Styles Update */
+/* Navigation Links - Updated Styles */
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem; /* Etwas reduzierter Abstand zwischen den Links */
     list-style: none;
     align-items: center;
 }
@@ -102,39 +125,26 @@ body {
 .nav-links a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem; /* Etwas kleinere Schrift */
     font-weight: 500;
     transition: color 0.3s ease;
     padding: 0.5rem 0;
     position: relative;
 }
 
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* Portfolio Link Special Styling */
+/* Portfolio Link Special Styling - Updated */
 .portfolio-link {
     background-color: var(--primary-color);
     color: white !important;
     padding: 0.5rem 1.25rem !important;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s ease !important;
+    border-radius: 100px; /* Runderen Button für moderneres Aussehen */
+    transition: all 0.3s ease !important;
 }
 
 .portfolio-link:hover {
     background-color: #2468d9;
+    transform: translateY(-2px); /* Leichter Hover-Effekt */
+    box-shadow: 0 4px 12px rgba(45, 127, 249, 0.2); /* Schatten beim Hover */
 }
 
 .portfolio-link::after {
@@ -150,9 +160,142 @@ body {
     width: 100%;
 }
 
+/* Mobile Navigation Styles */
+.mobile-nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.mobile-nav-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-color);
+    margin: 6px 0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.mobile-nav-toggle.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-nav-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-nav-toggle.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.mobile-menu {
+    position: fixed;
+    top: calc(20px + 70px); /* Direkt unter dem Header (Header-Position + Header-Höhe) */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    background-color: var(--menu-bg-color); /* Gleicher Hintergrund wie Header */
+    backdrop-filter: var(--menu-backdrop-filter); /* Gleicher Glaseffekt */
+    -webkit-backdrop-filter: var(--menu-backdrop-filter);
+    border-radius: 0 0 14px 14px; /* Abgerundete Ecken nur unten */
+    box-shadow: var(--menu-shadow);
+    border: 1px solid var(--menu-border-color);
+    border-top: none; /* Keine obere Grenze, da direkt am Header */
+    z-index: 999;
+    overflow: hidden;
+    
+    /* Anfangszustand: versteckt */
+    height: 0;
+    opacity: 0;
+    transition: height 0.3s ease, opacity 0.3s ease;
+    padding: 0 1rem;
+}
+
+.mobile-menu.active {
+    /* Aktiver Zustand: sichtbar */
+    height: auto; /* Wird durch JS auf die tatsächliche Höhe gesetzt */
+    opacity: 1;
+    padding: 1rem;
+}
+
+.mobile-menu .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    width: 100%;
+}
+
+.mobile-menu .nav-links li {
+    width: 100%;
+}
+
+.mobile-menu .nav-links a {
+    color: var(--text-color); /* Gleiche Textfarbe wie im Header */
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    display: block;
+    width: 100%;
+}
+
+.mobile-menu .nav-links .portfolio-link {
+    background-color: var(--primary-color); /* Gleiche Farbe wie im Header */
+    color: white !important;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: 100px;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.mobile-menu-bottom {
+    margin-top: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.mobile-menu-bottom .btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 100px;
+    font-size: 1rem;
+}
+
+.mobile-menu-bottom .btn.gold {
+    background-color: #D4A84B; /* Gold-Farbe wie im Beispiel */
+    color: white;
+}
+
+.mobile-menu-bottom .btn.outline {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.mobile-menu .logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.mobile-menu .logo img {
+    height: 40px;
+}
+
 /* Hero Section */
 .hero {
-    padding: var(--container-padding) 0;
+    padding-top: calc(var(--container-padding) + 80px); /* Extra Padding oben für das fixierte Menü */
     position: relative;
     overflow: hidden;
 }
@@ -364,66 +507,68 @@ body {
 
 .carousel-container {
     position: relative;
-    height: 800px;
+    width: 100%;
+    height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 12px;
 }
 
 .imac-frame {
     position: absolute;
-    width: 800px;
-    z-index: 3; /* Ändern auf 3 */
+    width: 700px; /* Größerer iMac */
+    z-index: 3;
     left: 50%;
     transform: translateX(-50%);
-    pointer-events: none; /* Wichtig: Erlaubt Maus-Events durch den Frame hindurch */
+    pointer-events: none;
 }
 
 .project-slides {
-    overflow: hidden;
     position: absolute;
-    top: -90px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+    width: 585px; /* 85% der iMac-Breite */
+    height: 330px; /* Proportional angepasst */
+    top: 87px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+    z-index: 2;
 }
 
 .project-slide {
     position: absolute;
-    width: 680px;
-    height: 428px;
+    width: 100%;
+    height: 100%;
     transition: all 0.5s ease-in-out;
     cursor: pointer;
     opacity: 0;
-    z-index: 2; /* Explizit setzen */
+    z-index: -1;
 }
 
 .project-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
     border-radius: 4px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .project-slide.prev {
-    transform: translateX(-100%) scale(0.8);
-    opacity: 0.7;
+    transform: translateX(-110%);
+    opacity: 1;
     z-index: 1;
 }
 
 .project-slide.current {
-    transform: translateX(0) scale(1);
+    transform: translateX(0);
     opacity: 1;
     z-index: 1;
 }
 
 .project-slide.next {
-    transform: translateX(100%) scale(0.8);
-    opacity: 0.7;
+    transform: translateX(110%);
+    opacity: 1;
     z-index: 1;
 }
 
@@ -446,11 +591,6 @@ body {
 
 .nav-dot.active {
     background-color: var(--primary-color);
-}
-
-/* Project Hover Box Styles */
-.carousel-container {
-    position: relative;
 }
 
 .project-hover-box {
@@ -497,15 +637,41 @@ body {
     overflow: hidden;
 }
 
+.faq-contact > .dot-pattern {
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    bottom: 1rem;
+    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.8;
+    z-index: 0; /* Niedriger z-index, damit es hinter allem liegt */
+    width: 300px;
+    height: 160px;
+}
+
+.faq-contact > .dot-pattern:nth-child(2) {
+    left: 45%;
+    top: initial;
+    height: 100px;
+    width: 220px;
+    z-index: 0; /* Ebenfalls niedriger z-index */
+}
+
 .faq-contact-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
     align-items: center;
+    position: relative;
+    z-index: 1; /* Höherer z-index als die Dot-Pattern */
 }
-/* FAQ Styles */
+
+/* FAQ Styles - Anpassung für z-index */
 .faq-section {
     padding-right: 2rem;
+    position: relative;
+    z-index: 1; /* Höherer z-index als die Dot-Pattern */
 }
 
 .faq-item {
@@ -514,7 +680,9 @@ body {
     margin-bottom: 1rem;
     background: white;
     color: var(--text-color);
-    transition: .3s ease-out color, .3s ease-out border-color; 
+    transition: .3s ease-out color, .3s ease-out border-color;
+    position: relative;
+    z-index: 1; /* Höherer z-index als die Dot-Pattern */
 }
 
 .faq-item:hover {
@@ -534,6 +702,9 @@ body {
     padding: 1.25rem 1.5rem;
     cursor: pointer;
     font-weight: 500;
+    position: relative;
+    z-index: 1; /* Höherer z-index als die Dot-Pattern */
+    background-color: white; /* Explizit weißer Hintergrund */
 }
 
 .arrow-icon {
@@ -567,14 +738,15 @@ body {
     font-size: 0.95rem;
 }
 
-/* Contact Form Styles */
+/* Contact Section - Anpassung für z-index */
 .contact-section {
     background: white;
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     position: relative;
-    overflow: visible; /* Wichtig, damit die Dots außerhalb sichtbar sind */
+    overflow: visible;
+    z-index: 1; /* Höherer z-index als die Dot-Pattern */
 }
 
 .contact-dots-left {
@@ -760,4 +932,43 @@ footer {
     z-index: -1;
     left: -200px;
     top: -100px;
+}
+
+/* Media Queries für responsive Design */
+@media (max-width: 991px) {
+    .main-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    .main-header .nav-links {
+        display: none;
+    }
+    
+    .mobile-nav-toggle {
+        display: block;
+    }
+    
+    .logo img {
+        height: 40px; /* Kleineres Logo für mobile Ansicht */
+    }
+
+    .interaction-hint{
+        width: 90vw;
+        margin: 0 auto;
+    }
+
+    .carousel-container{
+        height: 400px;
+    }
+
+    .imac-frame {
+        width: 90vw;
+        top: 7%;
+    }
+    
+    .project-slides {
+        width: 76.5vw; /* 85% der iMac-Breite */
+        height: 43.03vw; /* Proportional angepasst */
+        top: calc(7% + 6.4vw);
+    }
 }
