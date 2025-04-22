@@ -909,11 +909,132 @@ body.no-scroll {
 .form-group textarea {
     min-height: 150px;
     resize: vertical;
+    resize: none;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: #666;
+}
+
+/* Verbesserte Checkbox-Styling mit höherer Spezifität */
+.contact-section .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-section .checkbox-group input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    min-width: 22px; /* Verhindert Schrumpfen */
+    min-height: 22px; /* Verhindert Schrumpfen */
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: #f8fafc;
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+    margin-top: 2px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.contact-section .checkbox-group input[type="checkbox"]:checked {
+    background-color: #3B82F6;
+    border-color: #3B82F6;
+}
+
+.contact-section .checkbox-group input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    display: block;
+}
+
+.contact-section .checkbox-group input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.contact-section .checkbox-group label {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #64748b;
+    font-weight: normal;
+    user-select: none;
+}
+
+.contact-section .privacy-link {
+    color: #3B82F6;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-section .privacy-link:hover {
+    text-decoration: underline;
+}
+
+/* Form Status Styles */
+.form-status {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    display: none;
+}
+
+.form-status.success {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4CAF50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    display: block;
+}
+
+.form-status.error {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #F44336;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    display: block;
+}
+
+/* Button Loading State */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .contact-form button {
@@ -1051,6 +1172,169 @@ footer {
     transform: translateY(0);
 }
 
+/* Footer Styles */
+.main-footer {
+    background-color: #1e293b;
+    color: #f8fafc;
+    padding: 4rem 0 2rem;
+    margin-top: 6rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-top {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-logo img {
+    height: 40px;
+    width: auto;
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.footer-column h4 {
+    color: #f8fafc;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.5rem;
+    width: 2rem;
+    height: 2px;
+    background-color: #3B82F6;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+    color: #3B82F6;
+}
+
+.contact-info p {
+    margin-bottom: 0.75rem;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+}
+
+.contact-info a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #3B82F6;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #3B82F6;
+    transform: translateY(-3px);
+}
+
+.social-icons svg {
+    width: 18px;
+    height: 18px;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copyright, .footer-note {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Footer */
+@media screen and (min-width: 768px) {
+    .footer-top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .footer-logo {
+        flex: 0 0 20%;
+    }
+    
+    .footer-columns {
+        flex: 0 0 75%;
+    }
+    
+    .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .main-footer {
+        padding: 3rem 0 1.5rem;
+    }
+    
+    .footer-columns {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
 /* Media Queries für responsive Design */
 @media (max-width: 991px) {
     .main-header {
@@ -1067,6 +1351,11 @@ footer {
     
     .logo img {
         height: 40px; /* Kleineres Logo für mobile Ansicht */
+    }
+
+    .hero-image img {
+        width: 100%;
+        transform: translateX(0);
     }
 
     .interaction-hint{

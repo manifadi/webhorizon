@@ -164,6 +164,9 @@
                         <div class="project-slide next" data-index="2" data-url="https://www.holza.at/">
                             <img src="assets/holza-website.jpg" alt="Project 3">
                         </div>
+                        <div class="project-slide next" data-index="3" data-url="https://manifadi.github.io/florianwalch/">
+                            <img src="assets/walch-website.jpg" alt="Project 4">
+                        </div>
                     </div>
                 </div>
         
@@ -242,11 +245,10 @@
                 </div>
         
                 <div class="contact-section" id="contact">
-
                     <h2>Lassen Sie uns Ihr Projekt besprechen</h2>
                     <p>Erzählen Sie mir von Ihrer Idee, und ich zeige Ihnen, wie wir sie gemeinsam und unkompliziert umsetzen können.</p>
-    
-                    <form class="contact-form">
+                
+                    <form class="contact-form" id="contactForm" action="send-email.php" method="POST">
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Vor- Nachname" required>
                         </div>
@@ -256,15 +258,93 @@
                         <div class="form-group">
                             <textarea id="message" name="message" placeholder="Hier meine Nachricht" required></textarea>
                         </div>
-                        <button type="submit">Nachricht senden</button>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="privacy-consent" name="privacy-consent" required>
+                            <label for="privacy-consent">
+                                Ich stimme zu, dass meine Daten zum Zweck der Kontaktaufnahme gespeichert und verarbeitet werden. Weitere Informationen finden Sie in unserer <a href="/datenschutz" class="privacy-link">Datenschutzerklärung</a>.
+                            </label>
+                        </div>
+                        <button type="submit" id="submitBtn">Nachricht senden</button>
+                        <div id="form-status" class="form-status"></div>
                     </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <!-- Footer is empty for now -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="./assets/logo-images/logo-and-font-left-white-min.png" alt="WebHorizon Logo">
+                </div>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h4>Navigation</h4>
+                        <ul class="footer-links">
+                            <li><a href="#services">Leistungen</a></li>
+                            <li><a href="#references">Referenzen</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#contact">Kontakt</a></li>
+                            <li><a href="/portfolio">Portfolio</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Leistungen</h4>
+                        <ul class="footer-links">
+                            <li><a href="#wordpress">WordPress Websites</a></li>
+                            <li><a href="#custom-dev">Individuelle Entwicklung</a></li>
+                            <li><a href="#webdesign">Webdesign</a></li>
+                            <li><a href="#graphic-design">Grafikdesign</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Rechtliches</h4>
+                        <ul class="footer-links">
+                            <li><a href="/impressum">Impressum</a></li>
+                            <li><a href="/datenschutz">Datenschutzerklärung</a></li>
+                            <li><a href="/agb">AGB</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Kontakt</h4>
+                        <div class="contact-info">
+                            <p><a href="mailto:info@webhorizon.at">info@webhorizon.at</a></p>
+                            <p><a href="tel:+43123456789">+43 123 456 789</a></p>
+                            <div class="social-icons">
+                                <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </a>
+                                <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                                    </svg>
+                                </a>
+                                <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                        <rect x="2" y="9" width="4" height="12"></rect>
+                                        <circle cx="4" cy="4" r="2"></circle>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023-<span id="current-year"></span> WebHorizon. Alle Rechte vorbehalten.</p>
+                </div>
+                <div class="footer-note">
+                    <p>Professionelles Webdesign und Webentwicklung aus Österreich</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <button id="scroll-to-top" aria-label="Scroll to top">
@@ -283,5 +363,6 @@
     <script src="js/main.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/animations.js"></script>
+    <script src="js/contact-form.js"></script>
 </body>
 </html>

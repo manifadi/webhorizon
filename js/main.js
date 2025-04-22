@@ -207,3 +207,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Aktuelles Jahr für Copyright im Footer
+document.addEventListener('DOMContentLoaded', function() {
+    const currentYearElement = document.getElementById('current-year');
+    if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+    }
+});
