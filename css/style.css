@@ -1,55 +1,73 @@
-:root {
-    /* Colors */
-    /* Erweiterte Farbpalette */
+/* ==========================================================================
+   INHALTSVERZEICHNIS:
+   1. Variablen & Grundeinstellungen
+   2. Reset & Basis-Styles
+   3. Layout & Container
+   4. Header & Navigation
+   5. Mobile Navigation
+   6. Hero-Bereich
+   7. Buttons & CTAs
+   8. Services-Bereich
+   9. Referenzen & Carousel
+   10. FAQ-Bereich
+   11. Kontaktformular
+   12. Footer
+   13. Hilfselemente & Animationen
+   14. Responsive Anpassungen
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Variablen & Grundeinstellungen
+   ========================================================================== */
+   :root {
+    /* Farben */
     --primary-color: #2D7FF9;
     --secondary-color: #18191F;
-    --accent-color-light: #F0F7FF; /* Sehr helles Blau für Hintergründe */
+    --accent-color-light: #F0F7FF;
     --gradient-bg: linear-gradient(135deg, var(--accent-color-light) 0%, white 100%);
     --text-color: #18191F;
     --text-color-light: #666666;
     --border-color: #E5E5E5;
     
-    /* Neue Farben für das Vision OS-Style Menü */
+    /* Menü-Styles */
     --menu-bg-color: rgba(255, 255, 255, 0.7);
     --menu-backdrop-filter: blur(15px);
     --menu-border-color: rgba(255, 255, 255, 0.3);
     --menu-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     
-    /* Typography */
+    /* Typografie */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-size-base: 16px;
     --font-size-h1: 3.5rem;
     --font-size-h2: 2.5rem;
     --font-size-h3: 1.75rem;
     
-    /* Spacing */
+    /* Abstände */
     --container-padding: 4rem;
     --section-spacing: 6rem;
 }
 
-/* Reset & Base Styles */
+/* ==========================================================================
+   2. Reset & Basis-Styles
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Hide Scrollbar but keep functionality */
-/* For Webkit browsers (Chrome, Safari) */
+/* Scrollbar ausblenden aber Funktionalität beibehalten */
 ::-webkit-scrollbar {
     display: none;
 }
 
-/* For Firefox */
 * {
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
-/* Ensure the page still scrolls smoothly */
 html {
     scroll-behavior: smooth;
-    /* Verhindert horizontales Scrollen auf mobilen Geräten */
     overflow-x: hidden;
 }
 
@@ -58,12 +76,8 @@ body {
     font-size: var(--font-size-base);
     line-height: 1.5;
     color: var(--text-color);
-    background-color: var(--background-color);
-    /* Behält die Scroll-Funktionalität bei */
     overflow-y: scroll;
-    /* Verhindert horizontales Scrollen */
     overflow-x: hidden;
-    /* Macht das Scrollen geschmeidig auf iOS */
     -webkit-overflow-scrolling: touch;
 }
 
@@ -71,39 +85,45 @@ body.no-scroll {
     overflow: hidden;
 }
 
-/* Layout Containers */
+/* ==========================================================================
+   3. Layout & Container
+   ========================================================================== */
 .hero-container,
-.services-container {
+.services-container,
+.references-container,
+.faq-contact-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: var(--section-spacing) 2rem;
 }
 
-/* Header & Navigation - Updated Styles */
+/* ==========================================================================
+   4. Header & Navigation
+   ========================================================================== */
 .main-header {
-    position: fixed; /* Macht das Menü fixiert */
-    top: 20px; /* Abstand vom oberen Rand */
-    left: 50%; /* Zentriert horizontal */
-    transform: translateX(-50%); /* Korrigiert die Zentrierung */
-    width: 90%; /* Breite des Menüs */
-    max-width: 1200px; /* Maximale Breite */
-    padding: 0.75rem 1rem; /* Reduziertes Padding für ein kompakteres Design */
-    background-color: var(--menu-bg-color); /* Transparenter Hintergrund */
-    backdrop-filter: var(--menu-backdrop-filter); /* Glaseffekt */
-    -webkit-backdrop-filter: var(--menu-backdrop-filter); /* Für Safari */
-    border-radius: 14px; /* Abgerundete Ecken */
-    box-shadow: var(--menu-shadow); /* Subtiler Schatten */
-    border: 1px solid var(--menu-border-color); /* Subtile Umrandung */
-    z-index: 1000; /* Stellt sicher, dass das Menü über allem anderen liegt */
-    transition: all 0.3s ease; /* Smooth Transition für Animationen */
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    padding: 0.75rem 1rem;
+    background-color: var(--menu-bg-color);
+    backdrop-filter: var(--menu-backdrop-filter);
+    -webkit-backdrop-filter: var(--menu-backdrop-filter);
+    border-radius: 14px;
+    box-shadow: var(--menu-shadow);
+    border: 1px solid var(--menu-border-color);
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 .main-header.menu-active {
-    transform: translateX(-50%) translateY(0) !important; /* Überschreibt die Scroll-Animation */
+    transform: translateX(-50%) translateY(0) !important;
 }
 
 .nav-container {
-    max-width: 100%; /* Nutzt die volle Breite des Headers */
+    max-width: 100%;
     margin: 0;
     display: flex;
     justify-content: space-between;
@@ -111,13 +131,12 @@ body.no-scroll {
 }
 
 .logo img {
-    height: 45px; /* Etwas kleineres Logo für das kompaktere Menü */
+    height: 45px;
 }
 
-/* Navigation Links - Updated Styles */
 .nav-links {
     display: flex;
-    gap: 1.5rem; /* Etwas reduzierter Abstand zwischen den Links */
+    gap: 1.5rem;
     list-style: none;
     align-items: center;
 }
@@ -125,33 +144,51 @@ body.no-scroll {
 .nav-links a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 0.95rem; /* Etwas kleinere Schrift */
+    font-size: 0.95rem;
     font-weight: 500;
     transition: color 0.3s ease;
     padding: 0.5rem 0;
     position: relative;
 }
 
-/* Portfolio Link Special Styling - Updated */
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Portfolio Link Special Styling */
 .portfolio-link {
     background-color: var(--primary-color);
     color: white !important;
     padding: 0.5rem 1.25rem !important;
-    border-radius: 100px; /* Runderen Button für moderneres Aussehen */
+    border-radius: 100px;
     transition: all 0.3s ease !important;
 }
 
 .portfolio-link:hover {
     background-color: #2468d9;
-    transform: translateY(-2px); /* Leichter Hover-Effekt */
-    box-shadow: 0 4px 12px rgba(45, 127, 249, 0.2); /* Schatten beim Hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 127, 249, 0.2);
 }
 
 .portfolio-link::after {
-    display: none; /* Entfernt den Unterstrich-Effekt für den Portfolio-Button */
+    display: none;
 }
 
-/* Aktiver Menüpunkt */
 .nav-links a.active {
     color: var(--primary-color);
 }
@@ -160,7 +197,9 @@ body.no-scroll {
     width: 100%;
 }
 
-/* Mobile Navigation Styles */
+/* ==========================================================================
+   5. Mobile Navigation
+   ========================================================================== */
 .mobile-nav-toggle {
     display: none;
     background: transparent;
@@ -197,22 +236,20 @@ body.no-scroll {
 
 .mobile-menu {
     position: fixed;
-    top: calc(20px + 70px); /* Direkt unter dem Header (Header-Position + Header-Höhe) */
+    top: calc(20px + 70px);
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
     max-width: 1200px;
-    background-color: var(--menu-bg-color); /* Gleicher Hintergrund wie Header */
-    backdrop-filter: var(--menu-backdrop-filter); /* Gleicher Glaseffekt */
+    background-color: var(--menu-bg-color);
+    backdrop-filter: var(--menu-backdrop-filter);
     -webkit-backdrop-filter: var(--menu-backdrop-filter);
-    border-radius: 0 0 14px 14px; /* Abgerundete Ecken nur unten */
+    border-radius: 0 0 14px 14px;
     box-shadow: var(--menu-shadow);
     border: 1px solid var(--menu-border-color);
-    border-top: none; /* Keine obere Grenze, da direkt am Header */
+    border-top: none;
     z-index: 999;
     overflow: hidden;
-    
-    /* Anfangszustand: versteckt */
     height: 0;
     opacity: 0;
     transition: height 0.3s ease, opacity 0.3s ease;
@@ -220,8 +257,7 @@ body.no-scroll {
 }
 
 .mobile-menu.active {
-    /* Aktiver Zustand: sichtbar */
-    height: auto; /* Wird durch JS auf die tatsächliche Höhe gesetzt */
+    height: auto;
     opacity: 1;
     padding: 1rem;
 }
@@ -240,7 +276,7 @@ body.no-scroll {
 }
 
 .mobile-menu .nav-links a {
-    color: var(--text-color); /* Gleiche Textfarbe wie im Header */
+    color: var(--text-color);
     font-size: 1.1rem;
     padding: 0.5rem 0;
     display: block;
@@ -248,7 +284,7 @@ body.no-scroll {
 }
 
 .mobile-menu .nav-links .portfolio-link {
-    background-color: var(--primary-color); /* Gleiche Farbe wie im Header */
+    background-color: var(--primary-color);
     color: white !important;
     padding: 0.5rem 1.25rem !important;
     border-radius: 100px;
@@ -256,44 +292,9 @@ body.no-scroll {
     margin-top: 0.5rem;
 }
 
-.mobile-menu-bottom {
-    margin-top: 1.5rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.mobile-menu-bottom .btn {
-    width: 100%;
-    text-align: center;
-    padding: 0.75rem;
-    border-radius: 100px;
-    font-size: 1rem;
-}
-
-.mobile-menu-bottom .btn.gold {
-    background-color: #D4A84B; /* Gold-Farbe wie im Beispiel */
-    color: white;
-}
-
-.mobile-menu-bottom .btn.outline {
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-}
-
-.mobile-menu .logo {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
-.mobile-menu .logo img {
-    height: 40px;
-}
-
-/* Hero Section */
+/* ==========================================================================
+   6. Hero-Bereich
+   ========================================================================== */
 .hero {
     padding-top: calc(var(--container-padding) + 80px);
     position: relative;
@@ -340,7 +341,36 @@ body.no-scroll {
     z-index: 2;
 }
 
-/* Buttons */
+/* Floating Dots */
+.floating-dots {
+    position: absolute;
+    width: 140px;
+    height: 80px;
+    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.8;
+    z-index: -1;
+    left: 15%;
+    top: 20%;
+    transition: transform 0.5s ease-out;
+}
+
+/* Gradient Circle */
+.gradient-circle {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, #96c0ff9c 0%, rgba(230, 242, 255, 0.3) 30%, transparent 70%);
+    opacity: 0.4;
+    z-index: -1;
+    left: -200px;
+    top: -100px;
+    transition: transform 0.5s ease-out;
+}
+
+/* ==========================================================================
+   7. Buttons & CTAs
+   ========================================================================== */
 .cta-buttons {
     display: flex;
     gap: 1rem;
@@ -357,7 +387,7 @@ body.no-scroll {
     overflow: hidden;
 }
 
-.btn:hover{
+.btn:hover {
     transform: translateY(-2px);
 }
 
@@ -404,11 +434,32 @@ body.no-scroll {
     animation: ripple 1s ease-out;
 }
 
-/* Services Section */
+/* Button Loading State */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+}
+
+/* ==========================================================================
+   8. Services-Bereich
+   ========================================================================== */
 .services {
     padding: var(--section-spacing) 0;
     background: var(--accent-color-light);
-
 }
 
 .section-title {
@@ -435,7 +486,6 @@ body.no-scroll {
     margin-top: 4rem;
 }
 
-/* Service Number Styling */
 .service-number {
     position: absolute;
     top: -15px;
@@ -487,7 +537,9 @@ body.no-scroll {
     margin-bottom: 1.5rem;
 }
 
-/* References Section (New Carousel Version) */
+/* ==========================================================================
+   9. Referenzen & Carousel
+   ========================================================================== */
 .references {
     padding: var(--section-spacing) 0;
     overflow: hidden;
@@ -499,7 +551,6 @@ body.no-scroll {
     position: relative;
 }
 
-/* References Description Styles */
 .references-container .section-description {
     text-align: center;
     max-width: 800px;
@@ -527,21 +578,6 @@ body.no-scroll {
     color: var(--primary-color);
 }
 
-@keyframes slideRight {
-    0% {
-        transform: translateX(-3px);
-        opacity: 0.5;
-    }
-    50% {
-        transform: translateX(3px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(-3px);
-        opacity: 0.5;
-    }
-}
-
 .references h2 {
     text-align: center;
     margin-bottom: 4rem;
@@ -558,7 +594,7 @@ body.no-scroll {
     margin-top: 12px;
 }
 
-/* Verbesserte Styles für Carousel-Pfeile */
+/* Carousel-Pfeile */
 .carousel-arrow {
     position: absolute;
     top: 50%;
@@ -604,7 +640,7 @@ body.no-scroll {
 
 .imac-frame {
     position: absolute;
-    width: 700px; /* Größerer iMac */
+    width: 700px;
     z-index: 3;
     left: 50%;
     transform: translateX(-50%);
@@ -613,8 +649,8 @@ body.no-scroll {
 
 .project-slides {
     position: absolute;
-    width: 585px; /* 85% der iMac-Breite */
-    height: 330px; /* Proportional angepasst */
+    width: 585px;
+    height: 330px;
     top: 76px;
     left: 50%;
     transform: translateX(-50%);
@@ -716,7 +752,9 @@ body.no-scroll {
     height: 24px;
 }
 
-/* FAQ & Contact Section */
+/* ==========================================================================
+   10. FAQ-Bereich
+   ========================================================================== */
 .faq-contact {
     padding: var(--section-spacing) 6%;
     position: relative;
@@ -732,7 +770,7 @@ body.no-scroll {
     background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px);
     background-size: 20px 20px;
     opacity: 0.8;
-    z-index: 0; /* Niedriger z-index, damit es hinter allem liegt */
+    z-index: 0;
     width: 300px;
     height: 160px;
 }
@@ -742,7 +780,7 @@ body.no-scroll {
     top: initial;
     height: 100px;
     width: 220px;
-    z-index: 0; /* Ebenfalls niedriger z-index */
+    z-index: 0;
 }
 
 .faq-contact-container {
@@ -751,14 +789,13 @@ body.no-scroll {
     gap: 6rem;
     align-items: center;
     position: relative;
-    z-index: 1; /* Höherer z-index als die Dot-Pattern */
+    z-index: 1;
 }
 
-/* FAQ Styles - Anpassung für z-index */
 .faq-section {
     padding-right: 2rem;
     position: relative;
-    z-index: 1; /* Höherer z-index als die Dot-Pattern */
+    z-index: 1;
 }
 
 .faq-item {
@@ -792,8 +829,8 @@ body.no-scroll {
     cursor: pointer;
     font-weight: 500;
     position: relative;
-    z-index: 1; /* Höherer z-index als die Dot-Pattern */
-    background-color: white; /* Explizit weißer Hintergrund */
+    z-index: 1;
+    background-color: white;
 }
 
 .arrow-icon {
@@ -827,7 +864,9 @@ body.no-scroll {
     font-size: 0.95rem;
 }
 
-/* Contact Section - Anpassung für z-index */
+/* ==========================================================================
+   11. Kontaktformular
+   ========================================================================== */
 .contact-section {
     background: white;
     padding: 3rem;
@@ -917,7 +956,7 @@ body.no-scroll {
     color: #666;
 }
 
-/* Verbesserte Checkbox-Styling mit höherer Spezifität */
+/* Checkbox-Styling */
 .contact-section .checkbox-group {
     display: flex;
     align-items: flex-start;
@@ -931,8 +970,8 @@ body.no-scroll {
     appearance: none;
     width: 22px;
     height: 22px;
-    min-width: 22px; /* Verhindert Schrumpfen */
-    min-height: 22px; /* Verhindert Schrumpfen */
+    min-width: 22px;
+    min-height: 22px;
     border: 2px solid #e2e8f0;
     border-radius: 6px;
     background-color: #f8fafc;
@@ -987,7 +1026,7 @@ body.no-scroll {
     text-decoration: underline;
 }
 
-/* Form Status Styles */
+/* Formular-Status */
 .form-status {
     margin-top: 1rem;
     padding: 0.75rem;
@@ -1011,32 +1050,6 @@ body.no-scroll {
     display: block;
 }
 
-/* Button Loading State */
-.btn-loading {
-    position: relative;
-    color: transparent !important;
-}
-
-.btn-loading::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 50%;
-    left: 50%;
-    margin: -10px 0 0 -10px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 .contact-form button {
     width: 100%;
     padding: 1rem;
@@ -1054,130 +1067,13 @@ body.no-scroll {
     background-color: #2468d9;
 }
 
-/* Dot Pattern */
-.dot-pattern {
-    position: absolute;
-    top: -2rem;
-    right: -2rem;
-    bottom: 1rem;
-    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px); /* Dots kleiner */
-    background-size: 20px 20px; /* Dots enger zusammen */
-    opacity: 0.8; /* Opacity auf 0.8 erhöht */
-    z-index: 0;
-    width: 300px;
-    height: 160px;
-}
-
-.faq-contact > .dot-pattern:nth-child(2){
-    left: 45%;
-    top: initial;
-    height: 100px;
-    width: 220px;
-}
-
-/* Footer */
-footer {
-    padding: 2rem 0;
-    text-align: center;
-    color: var(--text-color);
-}
-
-/* Scroll to Top Button */
-#scroll-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: white;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(100px);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    z-index: 1000;
-}
-
-#scroll-to-top.visible {
-    opacity: 1;
-    transform: translateY(0);
-    animation: pulse 2s infinite;
-}
-
-#scroll-to-top svg:first-child {
-    width: 20px;
-    height: 20px;
-    color: var(--primary-color);
-}
-
-#scroll-to-top .progress-circle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg);
-}
-
-#scroll-to-top .progress-circle circle {
-    fill: none;
-    stroke: var(--primary-color);
-    stroke-width: 4;
-    stroke-dasharray: 289.027px; /* Umfang des Kreises: 2 * π * 46 */
-    stroke-dashoffset: 289.027px;
-    transition: stroke-dashoffset 0.1s ease;
-}
-
-/* Floating Dots */
-.floating-dots {
-    position: absolute;
-    width: 140px;
-    height: 80px;
-    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px);
-    background-size: 20px 20px;
-    opacity: 0.8;
-    z-index: -1;
-    left: 15%;
-    top: 20%;
-    transition: transform 0.5s ease-out;
-}
-
-/* Gradient Circle */
-.gradient-circle {
-    position: absolute;
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, #96c0ff9c 0%, rgba(230, 242, 255, 0.3) 30%, transparent 70%);
-    opacity: 0.4;
-    z-index: -1;
-    left: -200px;
-    top: -100px;
-    transition: transform 0.5s ease-out;
-}
-
-/* Allgemeine Animation-Klassen */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Footer Styles */
+/* ==========================================================================
+   12. Footer
+   ========================================================================== */
 .main-footer {
     background-color: #1e293b;
     color: #f8fafc;
     padding: 4rem 0 2rem;
-    margin-top: 6rem;
 }
 
 .footer-container {
@@ -1194,7 +1090,7 @@ footer {
 }
 
 .footer-logo img {
-    height: 40px;
+    height: 70px;
     width: auto;
 }
 
@@ -1302,102 +1198,99 @@ footer {
     margin-bottom: 0.5rem;
 }
 
-/* Responsive Footer */
-@media screen and (min-width: 768px) {
-    .footer-top {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-    
-    .footer-logo {
-        flex: 0 0 20%;
-    }
-    
-    .footer-columns {
-        flex: 0 0 75%;
-    }
-    
-    .footer-bottom {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-    }
+/* ==========================================================================
+   13. Hilfselemente & Animationen
+   ========================================================================== */
+/* Dot Pattern */
+.dot-pattern {
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    bottom: 1rem;
+    background-image: radial-gradient(circle, var(--primary-color) 1.5px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.8;
+    z-index: 0;
+    width: 300px;
+    height: 160px;
 }
 
-@media screen and (max-width: 767px) {
-    .main-footer {
-        padding: 3rem 0 1.5rem;
-    }
-    
-    .footer-columns {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
+/* Scroll to Top Button */
+#scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
 
-/* Media Queries für responsive Design */
-@media (max-width: 991px) {
-    .main-header {
-        padding: 0.75rem 1rem;
-    }
-    
-    .main-header .nav-links {
-        display: none;
-    }
-    
-    .mobile-nav-toggle {
-        display: block;
-    }
-    
-    .logo img {
-        height: 40px; /* Kleineres Logo für mobile Ansicht */
-    }
+#scroll-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: pulse 2s infinite;
+}
 
-    .hero-image img {
-        width: 100%;
-        transform: translateX(0);
-    }
+#scroll-to-top svg:first-child {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-color);
+}
 
-    .interaction-hint{
-        width: 90vw;
-        margin: 0 auto;
-    }
+#scroll-to-top .progress-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
 
-    .carousel-container{
-        height: 400px;
-    }
+#scroll-to-top .progress-circle circle {
+    fill: none;
+    stroke: var(--primary-color);
+    stroke-width: 4;
+    stroke-dasharray: 289.027px;
+    stroke-dashoffset: 289.027px;
+    transition: stroke-dashoffset 0.1s ease;
+}
 
-    .carousel-arrow {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .carousel-arrow svg {
-        width: 20px;
-        height: 20px;
-    }
-    
-    .carousel-arrow-left {
-        left: 10px;
-    }
-    
-    .carousel-arrow-right {
-        right: 10px;
-    }
-    
-    .interaction-hint {
-        font-size: 0.85rem;
-    }
+/* Allgemeine Animation-Klassen */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
 
-    .imac-frame {
-        width: 90vw;
-        top: 7%;
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animationen */
+@keyframes slideRight {
+    0% {
+        transform: translateX(-3px);
+        opacity: 0.5;
     }
-    
-    .project-slides {
-        width: 76.5vw; /* 85% der iMac-Breite */
-        height: 43.03vw; /* Proportional angepasst */
-        top: calc(7% + 4vw);
+    50% {
+        transform: translateX(3px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-3px);
+        opacity: 0.5;
     }
 }
 
@@ -1425,5 +1318,201 @@ footer {
     }
     100% {
         box-shadow: 0 0 0 0 rgba(45, 127, 249, 0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   14. Responsive Anpassungen
+   ========================================================================== */
+/* Desktop-First Ansatz */
+
+/* Große Tablets (992px und kleiner) */
+@media (max-width: 991px) {
+    .main-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    .main-header .nav-links {
+        display: none;
+    }
+    
+    .mobile-nav-toggle {
+        display: block;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .hero-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+    
+    .hero-image img {
+        width: 100%;
+        transform: translateX(0);
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .faq-contact-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .faq-section {
+        padding-right: 0;
+    }
+    
+    .interaction-hint {
+        width: 90vw;
+        margin: 0 auto;
+    }
+    
+    .carousel-container {
+        height: 400px;
+    }
+    
+    .carousel-arrow {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-arrow svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .carousel-arrow-left {
+        left: 10px;
+    }
+    
+    .carousel-arrow-right {
+        right: 10px;
+    }
+    
+    .imac-frame {
+        width: 90vw;
+        top: 7%;
+    }
+    
+    .project-slides {
+        width: 76.5vw;
+        height: 43.03vw;
+        top: calc(7% + 4vw);
+    }
+}
+
+/* Tablets (768px und kleiner) */
+@media (max-width: 768px) {
+    :root {
+        --font-size-h1: 2.5rem;
+        --font-size-h2: 2rem;
+        --font-size-h3: 1.5rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .cta-buttons .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-top {
+        flex-direction: column;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+    }
+    
+    .main-footer {
+        padding: 3rem 0 1.5rem;
+    }
+    
+    .footer-columns {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
+/* Smartphones (480px und kleiner) */
+@media (max-width: 480px) {
+    :root {
+        --font-size-h1: 2rem;
+        --font-size-h2: 1.75rem;
+        --font-size-h3: 1.25rem;
+        --container-padding: 2rem;
+        --section-spacing: 4rem;
+    }
+    
+    .main-header {
+        width: 95%;
+        top: 10px;
+    }
+    
+    .logo img {
+        height: 35px;
+    }
+    
+    .hero {
+        padding-top: calc(var(--container-padding) + 60px);
+    }
+    
+    .hero-content h1 {
+        margin-bottom: 0.75rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .contact-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .form-group input, 
+    .form-group textarea {
+        padding: 0.875rem 1rem;
+    }
+    
+    .contact-form button {
+        padding: 0.875rem;
+    }
+    
+    #scroll-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    #scroll-to-top svg:first-child {
+        width: 16px;
+        height: 16px;
     }
 }
