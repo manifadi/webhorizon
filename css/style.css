@@ -332,8 +332,8 @@ body.no-scroll {
 }
 
 .hero-image img {
-    width: 115%;
-    transform: translateX(-10%);
+    width: 125%;
+    transform: translateX(-17%);
     height: auto;
     border-radius: 1rem;
     position: relative;
@@ -513,17 +513,18 @@ body.no-scroll {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    margin: 2rem auto;
+    font-size: 0.95rem;
     color: var(--text-color-light);
-    font-size: 0.9rem;
-    margin-bottom: 3rem;
-    opacity: 0.8;
+    gap: 10px;
+    max-width: 90%;
+    text-align: center;
 }
 
 .hint-icon {
-    width: 16px;
-    height: 16px;
-    animation: slideRight 1.5s ease-in-out infinite;
+    width: 18px;
+    height: 18px;
+    color: var(--primary-color);
 }
 
 @keyframes slideRight {
@@ -557,6 +558,50 @@ body.no-scroll {
     margin-top: 12px;
 }
 
+/* Verbesserte Styles für Carousel-Pfeile */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.carousel-arrow:hover {
+    background: white;
+    opacity: 1;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-arrow svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-color);
+}
+
+.carousel-arrow-left {
+    left: 20px;
+}
+
+.carousel-arrow-right {
+    right: 20px;
+}
+
 .imac-frame {
     position: absolute;
     width: 700px; /* Größerer iMac */
@@ -570,7 +615,7 @@ body.no-scroll {
     position: absolute;
     width: 585px; /* 85% der iMac-Breite */
     height: 330px; /* Proportional angepasst */
-    top: 87px;
+    top: 76px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 3px;
@@ -646,7 +691,7 @@ body.no-scroll {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 4; /* Höher als der iMac-Frame */
+    z-index: 4;
     gap: 15px;
 }
 
@@ -986,8 +1031,8 @@ footer {
     position: absolute;
     width: 800px;
     height: 800px;
-    background: radial-gradient(circle, var(--accent-color-light) 0%, rgba(240, 247, 255, 0.3) 30%, transparent 70%);
-    opacity: 0.8;
+    background: radial-gradient(circle, #96c0ff9c 0%, rgba(230, 242, 255, 0.3) 30%, transparent 70%);
+    opacity: 0.4;
     z-index: -1;
     left: -200px;
     top: -100px;
@@ -1033,6 +1078,28 @@ footer {
         height: 400px;
     }
 
+    .carousel-arrow {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-arrow svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .carousel-arrow-left {
+        left: 10px;
+    }
+    
+    .carousel-arrow-right {
+        right: 10px;
+    }
+    
+    .interaction-hint {
+        font-size: 0.85rem;
+    }
+
     .imac-frame {
         width: 90vw;
         top: 7%;
@@ -1041,7 +1108,7 @@ footer {
     .project-slides {
         width: 76.5vw; /* 85% der iMac-Breite */
         height: 43.03vw; /* Proportional angepasst */
-        top: calc(7% + 6.4vw);
+        top: calc(7% + 4vw);
     }
 }
 

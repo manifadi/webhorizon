@@ -6,10 +6,13 @@ class ProjectCarousel {
         this.currentIndex = 1;
         this.isAnimating = false;
         
-        // Touch-Events Variablen
+        // Touch-Events Variablen (nur für mobile)
         this.touchStartX = 0;
         this.touchEndX = 0;
         this.minSwipeDistance = 50;
+        
+        // Geräteerkennung
+        this.isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
         
         // Initialisierung
         this.init();
@@ -19,24 +22,90 @@ class ProjectCarousel {
         if (!this.container || !this.slides.length) return;
         
         this.createNavigationDots();
+        this.createNavigationArrows();
+        this.updateInteractionHint();
         
         // Click Events - nur auf die Slides
         this.slides.forEach((slide, index) => {
             slide.addEventListener('click', () => this.handleSlideClick(index));
         });
 
-        // Touch Events
-        this.container.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
-        this.container.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: true });
-        this.container.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: true });
+        // Touch Events - nur für mobile Geräte
+        if (this.isMobile) {
+            this.container.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
+            this.container.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: true });
+            this.container.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: true });
+        }
+
+        // Fenstergrößenänderung überwachen
+        window.addEventListener('resize', () => {
+            this.isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+            this.updateInteractionHint();
+        });
 
         // Initial Update
         this.updateCarousel();
     }
 
-    // Neue Touch-Event Handler
+    // Neue Methode für unterschiedliche Hinweistexte
+    updateInteractionHint() {
+        const hintElement = document.querySelector('.interaction-hint');
+        if (!hintElement) return;
+        
+        if (this.isMobile) {
+            hintElement.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hint-icon">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+                <span>Wischen Sie nach links oder rechts, um Projekte zu durchsuchen</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hint-icon">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            `;
+        } else {
+            hintElement.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hint-icon">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+                <span>Klicken Sie auf die Pfeile, um Projekte zu durchsuchen</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hint-icon">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            `;
+        }
+    }
+
+    // Navigationspfeile erstellen
+    createNavigationArrows() {
+        // Erstelle linken Pfeil
+        const leftArrow = document.createElement('div');
+        leftArrow.className = 'carousel-arrow carousel-arrow-left';
+        leftArrow.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        `;
+        leftArrow.addEventListener('click', () => this.goToPrevSlide());
+        
+        // Erstelle rechten Pfeil
+        const rightArrow = document.createElement('div');
+        rightArrow.className = 'carousel-arrow carousel-arrow-right';
+        rightArrow.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        `;
+        rightArrow.addEventListener('click', () => this.goToNextSlide());
+        
+        // Füge Pfeile zum Container hinzu
+        this.container.appendChild(leftArrow);
+        this.container.appendChild(rightArrow);
+    }
+
+    // Touch-Event Handler - nur für mobile Geräte
     handleTouchStart(e) {
         this.touchStartX = e.touches[0].clientX;
+        this.touchStartTime = Date.now();
     }
 
     handleTouchMove(e) {
@@ -47,7 +116,12 @@ class ProjectCarousel {
         if (!this.touchStartX || !this.touchEndX) return;
 
         const swipeDistance = this.touchEndX - this.touchStartX;
-        const isSignificantSwipe = Math.abs(swipeDistance) > this.minSwipeDistance;
+        const swipeTime = Date.now() - this.touchStartTime;
+        const swipeSpeed = Math.abs(swipeDistance) / swipeTime;
+        
+        // Schnelle Wischgesten sofort erkennen
+        const isSignificantSwipe = Math.abs(swipeDistance) > this.minSwipeDistance || 
+                                  (Math.abs(swipeDistance) > 20 && swipeSpeed > 0.5);
 
         if (isSignificantSwipe) {
             if (swipeDistance > 0) {
@@ -106,12 +180,12 @@ class ProjectCarousel {
 
         if (animate) {
             this.isAnimating = true;
-            setTimeout(() => { this.isAnimating = false; }, 500);
+            setTimeout(() => { this.isAnimating = false; }, 300); // Schnellere Reaktion
         }
 
         this.slides.forEach(slide => {
             slide.classList.remove('prev', 'current', 'next');
-            slide.style.transition = animate ? 'all 0.5s ease-in-out' : 'none';
+            slide.style.transition = animate ? 'all 0.3s ease-in-out' : 'none'; // Schnellere Transition
         });
 
         const prevIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
@@ -174,6 +248,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Prüfe, ob der Mauszeiger über dem aktuellen Slide ist
         const currentSlide = document.querySelector('.project-slide.current');
+        if (!currentSlide) return;
+        
         const slideRect = currentSlide.getBoundingClientRect();
         const isOverCurrentSlide = (
             currentEvent.clientX >= slideRect.left &&

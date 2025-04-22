@@ -209,8 +209,8 @@ document.addEventListener('mousemove', function(e) {
     
     // Subtile Bewegung für Hintergrund-Elemente basierend auf Mausposition
     gsap.to('.gradient-circle', {
-        x: mouseX * 30,
-        y: mouseY * 30,
+        x: mouseX * 50,
+        y: mouseY * 50,
         duration: 1
     });
     
@@ -221,8 +221,8 @@ document.addEventListener('mousemove', function(e) {
     });
     
     gsap.to('.hero-image', {
-        x: mouseX * 10,
-        y: mouseY * 10,
+        x: mouseX * 25,
+        y: mouseY * 25,
         duration: 1
     });
 });
